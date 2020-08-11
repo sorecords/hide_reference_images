@@ -68,20 +68,6 @@ class HRI_HideOther(bpy.types.Operator):
 
 hri_keymaps = []
 
-class HRI_Preferences(bpy.types.AddonPreferences):
-    bl_idname = __name__
-
-    def draw(self, context):
-        layout = self.layout
-        layout.label(text="Shortcuts: ")
-        col = layout.column()
-        kc = bpy.context.window_manager.keyconfigs.addon
-        km = kc.keymaps['Object Mode']
-        for km, kmi in hri_keymaps:
-            km = km.active()
-            col.context_pointer_set("keymap", km)
-            rna_keymap_ui.draw_kmi([], kc, km, kmi, col, 0)
-
 def hri_keyconfig():
     kc = bpy.context.window_manager.keyconfigs.addon
     km = kc.keymaps.new("Object Mode") if "Object Mode" not in kc.keymaps else kc.keymaps["Object Mode"]
@@ -125,7 +111,6 @@ class HRI_PT_panel(bpy.types.Panel):
 hri_classes = [
     HRI_HideRefs,
     HRI_HideOther,
-    HRI_Preferences,
     HRI_PT_panel,    
 ]
 
